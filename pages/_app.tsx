@@ -19,10 +19,7 @@ const config = getDefaultConfig({
   projectId: 'YOUR_PROJECT_ID',
   chains: [
     mainnet,
-    polygon,
-    optimism,
-    arbitrum,
-    base,
+    sepolia,
     ...(process.env.NEXT_PUBLIC_ENABLE_TESTNETS === 'true' ? [sepolia] : []),
   ],
   ssr: true,
