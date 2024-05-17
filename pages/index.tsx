@@ -5,6 +5,7 @@ import styles from '../styles/Home.module.css';
 import { Button } from '../@/components/ui/button';
 import { useReadContract } from 'wagmi'
 import { useAccount } from 'wagmi'
+import { useWriteContract } from 'wagmi'
 
 const abi = [
   {
@@ -55,27 +56,42 @@ const abi = [
 const address = "0x6df511640a9ed4615A4679246E561f711FABDD61"
 
 
-
 const Home: NextPage = () => {
   const  result  = useReadContract({
     abi: abi,
     address: address,
     functionName: 'getNumberOfGumballs',
 })
+
 const account = useAccount();
+const { writeContract } = useWriteContract()
+function getAGumball() {
+  writeContract({ 
+    abi,
+    address: address,
+    functionName: 'getGumball',
+    args:[
+    ]
+ })
+}
   return (
     <main>
       <div className = "flex items-center justify-center p-2">
         <ConnectButton/>
        </div>
       <div className = "flex items-center justify-center m-2">
-        <Button> 
+        <Button className = "bg-red-100"> 
         Current Gumball Count: 
         {result.data?.toString()}
         </Button>
       </div> 
       <div className = "flex items-center justify-center m-2">
         HELLOOO
+      </div>
+      <div className = "flex items-center justify-center p-2">
+        <Button className = "bg-blue-100" onClick = {() => getAGumball()}>
+          Get a Gumball
+        </Button>
       </div>
   </main>
    
